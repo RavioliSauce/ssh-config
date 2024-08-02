@@ -1,6 +1,6 @@
 ### SSH Configuration Options:
 
-1. **Host**: Defines the hosts for which the following settings apply. Example: `Host example1`.
+1. **Host**: Defines the hosts for which the following settings apply. You'll be able to SSH using the name. Example: `ssh exampleHost`.
 2. **AddressFamily**: Specifies the address family to use (IPv4 or IPv6). Example: `AddressFamily inet`.
 3. **BatchMode**: Disables password querying for scripts. Example: `BatchMode yes`.
 4. **BindAddress**: Uses a specific local address for the connection. Example: `BindAddress 192.168.1.100`.
