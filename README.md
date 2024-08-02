@@ -14,11 +14,15 @@ A simple GUI to configure the ssh config file.
 ```bash
 git clone
 ```
-2. Install the dependencies:
+2. Go to the project directory:
+```bash
+cd ssh-config
+```
+3. Install the dependencies:
 ```bash
 pip install -r requirements.txt
 ```
-3. Run the project:
+4. Run the project:
 ```bash
 python src/main.py
 ```
