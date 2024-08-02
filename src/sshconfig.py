@@ -1,4 +1,28 @@
 from PySide6 import QtWidgets, QtCore, QtGui
+from pprint import pprint
+
+def load():
+    home = QtCore.QDir.homePath()
+    with open(f"{home}/.ssh/config") as f:
+        print(f.read())
+        return f.read()
+
+def parse(config: str) -> dict:
+    """Parse the SSH config file and populate the list widget"""
+    hosts = {}
+    current_host = None
+    lines = config.splitlines()
+    for line in lines:
+        line = line.strip()
+        if line.startswith("#") or not line:
+            continue
+        if line.startswith("Host "):
+            current_host = line.split()[1]
+            hosts[current_host] = {}
+        elif current_host:
+            key, value = line.split(None, 1)
+            hosts[current_host][key] = value
+    return hosts
 
 class SSHConfig(QtWidgets.QDialog):
     
@@ -8,8 +32,8 @@ class SSHConfig(QtWidgets.QDialog):
         self.setMinimumHeight(100)
         self.setMinimumWidth(400)
         
-        config = self.load()
-        self.parse(config)
+        config = load()
+        parsed_config = parse(config)
         
         main_layout = QtWidgets.QGridLayout(self)
         
@@ -47,14 +71,9 @@ class SSHConfig(QtWidgets.QDialog):
         
         main_layout.setColumnStretch(0, 1)
         main_layout.setColumnStretch(1, 2)
-        
-    def load(self):
-        home = QtCore.QDir.homePath()
-        with open(f"{home}/.ssh/config") as f:
-            print(f.read())
-            return f.read()
-        
-    def parse(self, config):
-        """Parse the SSH config file and populate the list widget"""
-        hosts = {}
+    
+if __name__ == "__main__":
+    config = load()
+    parsed_config = parse(config)
+    pprint(parsed_config)
         
