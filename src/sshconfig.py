@@ -3,9 +3,9 @@ from pprint import pprint
 
 def load():
     home = QtCore.QDir.homePath()
-    with open(f"{home}/.ssh/config") as f:
-        print(f.read())
-        return f.read()
+    with open(f"{home}/.ssh/config", 'r') as f:
+        config = f.read()
+        return config
 
 def parse(config: str) -> dict:
     """Parse the SSH config file and populate the list widget"""
